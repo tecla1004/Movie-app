@@ -15,6 +15,7 @@ const  MovieScreen = ({ navigation }) => {
     const movieType = ["popular", "now playing", "top rated", "upcoming"];
 
     
+    //Listing Movie
     function movieList(navigation, data, forTv) {
         var movieArry = [];
       
@@ -29,15 +30,15 @@ const  MovieScreen = ({ navigation }) => {
             releaseDate = data[i].release_date;
           }
           movieArry.push(
-            <View style={{ padding: 10, flexDirection: "row" }} key={data[i].id}>
+            <View key={data[i].id}>
               <Image
                 style={styles.movieImg}
                 source={{
-                  uri: "https://image.tmdb.org/t/p/w500" + data[i].poster_path,
+                  uri: data[i].poster_path,
                 }}
               />
       
-              <View style={{ flexDirection: "column" }}>
+              <View>
                 <View>
                   <Text style={styles.title}>{title}</Text>
                 </View>
@@ -49,25 +50,8 @@ const  MovieScreen = ({ navigation }) => {
                 <View>
                   <Text style={{ fontSize: 12 }}>Release_date : {releaseDate}</Text>
                 </View>
-                <View
-                  style={{
-                    backgroundColor: "lightblue",
-                    padding: 5,
-                    width: 150,
-                    height: 50,
-                    fontSize: 12,
-                    borderRadius: 5,
-                  }}
-                >
-                  <Button
-                    title="More Details"
-                    onPress={() =>
-                      navigation.navigate("Detail", {
-                        movieID: data[i].id,
-                        forTv: forTv,
-                      })
-                    }
-                  />
+                <View>
+                  <Button title="More Details" />
                 </View>
               </View>
             </View>
@@ -75,25 +59,68 @@ const  MovieScreen = ({ navigation }) => {
         }
         return movieArry;
       }
+
+      //Movie Datail
+      function MovieDetail({ route, navigation }) {
+        const [detail, setDetail] = useState({});
+        const [loading, setLoading] = useState(true);
+      
+        if (loading) {
+          return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+              <Text>loading....</Text>
+            </View>
+          );
+        } else {
+          return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+              <View>
+                <Text style={{ fontWeight: "bold", paddingBottom: 40 }}>
+                  {detail.title}
+                </Text>
+              </View>
+              <Image
+                style={styles.detailImg}
+                source={{
+                  uri: detail.image,
+                }}
+              />
+              <View>
+                <Text style={{ padding: 15, marginHorizontal: 10 }}>
+                  {detail.desc}
+                </Text>
+              </View>
+              <View>
+                <Text>Popularity : {detail.popularity}</Text>
+              </View>
+              <View>
+                <Text>Release_date : {detail.release_date}</Text>
+              </View>
+            </View>
+          );
+        }
+      }
+      
+    //Fetching movie data 
     const fetchMovieData = async (sortType) => {
-      let urlSearchParam = "";
+      let searchParam = "";
       switch (sortType) {
         case "popular":
-          urlSearchParam = "popular";
+          searchParam = "popular";
           break;
         case "now playing":
-          urlSearchParam = "now_playing";
+          searchParam = "now_playing";
           break;
         case "top rated":
-          urlSearchParam = "top_rated";
+          searchParam = "top_rated";
           break;
         case "upcoming":
-          urlSearchParam = "upcoming";
+          searchParam = "upcoming";
           break;
         default:
       }
   
-      const url = `${BASE_URL}/movie/${urlSearchParam}?api_key=${API_KEY}`;
+      const url = `${BASE_URL}/movie/${searchParam}?api_key=${API_KEY}`;
       const api_call = await fetch(url);
       const response = await api_call.json();
   
