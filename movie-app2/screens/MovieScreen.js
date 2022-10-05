@@ -6,15 +6,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import SelectDropdown from "react-native-select-dropdown";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { API_KEY, BASE_URL, TYPE } from "../services/api";
-const movieType = ["popular", "now playing", "top rated", "upcoming"];
+
 
 
 
 const  MovieScreen = ({ navigation }) => {
     const [movies, setMovies] = useState([]);
+    const movieType = ["popular", "now playing", "top rated", "upcoming"];
 
-
-    function createMovieRows(navigation, data, forTv) {
+    
+    function movieList(navigation, data, forTv) {
         var movieArry = [];
       
         for (let i = 0; i < data.length; i++) {
@@ -96,7 +97,7 @@ const  MovieScreen = ({ navigation }) => {
       const api_call = await fetch(url);
       const response = await api_call.json();
   
-      let movieRows = createMovieRows(navigation, response.results, false);
+      let movieRows = movieList(navigation, response.results, false);
       setMovies(movieRows);
     };
   
