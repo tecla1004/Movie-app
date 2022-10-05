@@ -16,7 +16,7 @@ const TvScreen = ({ navigation }) => {
       const api_call = await fetch(url);
       const response = await api_call.json();
   
-      let tvRows = createMovieRows(navigation, response.results, true);
+      let tvRows = tvList(navigation, response.results, true);
       setTvShows(tvRows);
     };
   

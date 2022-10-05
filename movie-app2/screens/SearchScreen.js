@@ -29,11 +29,12 @@ const SearchScreen = ({ navigation }) => {
         </View>
         <TextInput
           style= {{
+            width:"70%",
           height: 40,
           margin: 12,
           borderWidth: 1,
           padding: 10,}}
-          placeholder="ex. james bond"
+          placeholder="i.e. james bond, CSI"
           onChangeText={setInputQuery}
         />
         <View>
@@ -51,6 +52,7 @@ const SearchScreen = ({ navigation }) => {
         <View
           style={{
             backgroundColor: "lightblue",
+           
             padding: 5,
             width: 150,
             height: 50,
@@ -58,7 +60,17 @@ const SearchScreen = ({ navigation }) => {
             borderRadius: 5,
           }}
         >
-          <Button title="Search" onPress={() => fetchSearch()} />
+          <Button 
+            style={{
+                color:"white",
+            }}
+            title="Search" onPress={() => fetchSearch()} />
+          <Text
+            style={{
+                paddingTop:20,
+                width:"120%",
+            }}
+          >Plese select a search types</Text>
         </View>
         <ScrollView showsHorizontalScrollIndicator={false}>
           {searchResults}

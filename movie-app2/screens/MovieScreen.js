@@ -124,8 +124,8 @@ const  MovieScreen = ({ navigation }) => {
       const api_call = await fetch(url);
       const response = await api_call.json();
   
-      let movieRows = movieList(navigation, response.results, false);
-      setMovies(movieRows);
+      let movieLists = movieList(navigation, response.results, false);
+      setMovies(movieLists);
     };
   
     return (
