@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import { ScrollView,  Text,  View,  Button,  Image, TouchableOpacity  } from "react-native";
 import SelectList from "react-native-dropdown-select-list";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 import * as React from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import {getData} from "../services/api";
 import axios from 'axios'
 import { Card } from "@rneui/themed";
 
-const  MovieScreen = ({ navigation }) => {
+function  MovieScreen({navigation}) {
     const [movies, setMovies] = useState([]);
     const movieType = ["now_playing", "popular", "top_rated", "upcoming"];//options
     const [selected, setSelected] = useState("now_playing");
@@ -67,15 +69,10 @@ const  MovieScreen = ({ navigation }) => {
               >{item.title}</Text>
               <Text>Popularity:{item.popularity}</Text>
               <Text>Release Date:{item.release_date}</Text>
-              <TouchableOpacity 
-              style={{
-                alignItems:"center",
-                padding:10,
-                backgroundColor:'skyblue'
-              }}>
-                <Text>More Detail</Text>
-              </TouchableOpacity>       
-            
+              <Button 
+              title="More Detail"
+              onPress={()=>navigation.navigate('Details')}
+              />
             </View>
             
           </View>
@@ -86,5 +83,19 @@ const  MovieScreen = ({ navigation }) => {
        </ScrollView>
       </View>
      )
+}
+
+
+const Stack = createNativeStackNavigator();
+
+function Screens () {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+      <Stack.Screen name="MovieScreen" component={MovieScreen} />
+        <Stack.Screen name="Details" component={Details} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
   export default MovieScreen;

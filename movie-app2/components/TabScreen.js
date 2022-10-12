@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import MovieScreen from '../screens/MovieScreen'
 import SearchScreen from '../screens/SearchScreen'
 import TvScreen from '../screens/TvScreen'
+import Details from "../screens/Details";
 
 const Nav  = createMaterialTopTabNavigator();
 export default function TabScreen  () {

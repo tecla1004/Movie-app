@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { ScrollView,  Text,  View,  Button,  Image, TouchableOpacity  } from "react-native";
 import SelectList from "react-native-dropdown-select-list";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import SelectDropdown from "react-native-select-dropdown";
 import {getData} from "../services/api";
-import axios from 'axios'
 import { Card } from "@rneui/themed";
+import Details from "./Details";
 
-const  TvScreen = ({ navigation }) => {
+
+function  TvScreen () {
     const [tvShow, setTvShow] = useState([]);
     const tvType = ["popular", "on_the_air", "airing_today"];//options
     const [selected, setSelected] = useState("popular");
@@ -86,5 +87,18 @@ const  TvScreen = ({ navigation }) => {
        </ScrollView>
       </View>
      )
+}
+
+
+const Stack = createNativeStackNavigator();
+
+function Screens () {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Details" component={Details} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
   export default TvScreen;
