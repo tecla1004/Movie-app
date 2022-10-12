@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ScrollView,  Text,  View,  Button,  Image  } from "react-native";
+import { ScrollView,  Text,  View,  Button,  Image, TouchableOpacity  } from "react-native";
 import SelectList from "react-native-dropdown-select-list";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import * as React from "react";
@@ -31,63 +31,9 @@ const  MovieScreen = ({ navigation }) => {
   
    console.log(movies)
     console.log(selected)
-   //unhandled error
-  // useEffect(()=>{
-  //   if(movies) {
-  //     const getMovies = async() => {
-  //       const response = await getData(`movie/${selected}`)
-  //       setMovies(response.results);
-  //     };
-  //     getMovies();
-  //   }
-  //   setIsLoading(false)
-  // },[selected])
-  //   //Fetching movie data 
-  //   const fetchMovieData = async = () => {
-  //     setIsLoading(true);
-  //     console.log('fetching data');
-  //     if (tabMenu === 'movie') {
-  //     }
-  //     else {
-  //         getData(tabMenu, options)
-  //         .then(response => {
-  //             setData(response);
-  //     })
-  //     .then(() => setIsLoading(false))
-  //     .catch(error => console.log(error));
+   
 
-  //     }
-  //   }
 
-  //   useEffect(() => {
-  //     if(tabMenu != 'search')
-  //     fetchMovieData();
-  // },[options, ' ']);
-
-//  useEffect(() =>  {
-//     getDataFromAPI()
-// },[])
-  
-  // const dataResponse = async()=>{
-  //   const response = await newAPI.get(`baseUrl/movie/${selected}/api_key`)
-  //   console.log(response.data)
-  // }
-
-  // function getDataFromAPI(){
-  //   newAPI.get(`baseUrl/movie/${selected}/api_key`)
-  //   .then(function(response){
-  //     console.log(response.data)
-  //   })
-  //   .catch(function(error){
-  //     console.log(error)
-  //   })
-  // }
-  //selected movie type by user 
-  // const handleSelect = (options) => {
-  //   setOptions(options);
-
-  // }
-    // //Listing Movie
      return (
       <View>
         <ScrollView>
@@ -100,10 +46,38 @@ const  MovieScreen = ({ navigation }) => {
        {movies.results?.map((item, index)=>{
         return (
           <Card>
-          <View key={index}>
-            <Text>{item.title}</Text>
-            <Image source={{uri:item.poster_path}}></Image>
-            <Text>{item.popularity}</Text>
+          <View key={index}
+          style={{
+            flexDirection:'row'
+          }} >
+            <View>
+              <Image source={{uri:`https://image.tmdb.org/t/p/w500/${item.poster_path}`}}
+                style={{
+                  width:100,
+                  height:100
+                }}
+              
+              />
+            </View>
+            <View>
+              <Text
+                style={{
+                  fontWeight:'bold'
+                }}
+              >{item.title}</Text>
+              <Text>Popularity:{item.popularity}</Text>
+              <Text>Release Date:{item.release_date}</Text>
+              <TouchableOpacity 
+              style={{
+                alignItems:"center",
+                padding:10,
+                backgroundColor:'skyblue'
+              }}>
+                <Text>More Detail</Text>
+              </TouchableOpacity>       
+            
+            </View>
+            
           </View>
           </Card>
         )
@@ -112,115 +86,5 @@ const  MovieScreen = ({ navigation }) => {
        </ScrollView>
       </View>
      )
-    // function movieList(navigation, tabMenu, opions) {
-    //     var movieArry = [];
-      
-    //     for (let i = 0; i < data.length; i++) {
-    //       var title = "";
-    //       var releaseDate = "";
-    //       if (tabMenu === '') {
-    //         title = data[i].name;
-    //         releaseDate = data[i].first_air_date;
-    //       } else {
-    //         title = data[i].title;
-    //         releaseDate = data[i].release_date;
-    //       }
-    //       movieArry.push(
-    //         <View key={data[i].id}>
-    //           <Image
-    //             style={styles.movieImg}
-    //             source={{
-    //               uri: data[i].poster_path,
-    //             }}
-    //           />
-      
-    //           <View>
-    //             <View>
-    //               <Text style={styles.title}>{title}</Text>
-    //             </View>
-    //             <View>
-    //               <Text style={{ fontSize: 12 }}>
-    //                 Popularity : {data[i].popularity}
-    //               </Text>
-    //             </View>
-    //             <View>
-    //               <Text style={{ fontSize: 12 }}>Release_date : {releaseDate}</Text>
-    //             </View>
-    //             <View>
-    //               <Button title="More Details" />
-    //             </View>
-    //           </View>
-    //         </View>
-    //       );
-    //     }
-    //     return movieArry;
-     }
-
-      // //Movie Datail
-      // function MovieDetail({ route, navigation }) {
-      //   const [detail, setDetail] = useState({});
-      //   const [loading, setLoading] = useState(true);
-      
-      //   if (loading) {
-      //     return (
-      //       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      //         <Text>loading....</Text>
-      //       </View>
-      //     );
-      //   } else {
-      //     return (
-      //       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      //         <View>
-      //           <Text style={{ fontWeight: "bold", paddingBottom: 40 }}>
-      //             {detail.title}
-      //           </Text>
-      //         </View>
-      //         <Image
-      //           style={styles.detailImg}
-      //           source={{
-      //             uri: detail.image,
-      //           }}
-      //         />
-      //         <View>
-      //           <Text style={{ padding: 15, marginHorizontal: 10 }}>
-      //             {detail.desc}
-      //           </Text>
-      //         </View>
-      //         <View>
-      //           <Text>Popularity : {detail.popularity}</Text>
-      //         </View>
-      //         <View>
-      //           <Text>Release_date : {detail.release_date}</Text>
-      //         </View>
-      //       </View>
-      //     );
-      //   }
-      // }
-      
-    
-  
-    //   const url = `${BASE_URL}/movie/${searchParam}?api_key=${API_KEY}`;
-    //   const api_call = await fetch(url);
-    //   const response = await api_call.json();
-  
-    //   let movieLists = movieList(navigation, response.results, false);
-    //   setMovies(movieLists);
-    // };
- 
-    // return (
-    //   <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    //     <SelectDropdown
-    //       data={movieType}
-    //       onSelect={(selectedItem, index) => {
-    //        console.log(selectedItem)
-    //       }}
-    //       buttonTextAfterSelection={(selectedItem, index) => {
-    //         return selectedItem;
-    //       }}
-    //     />
-    //     <ScrollView showsHorizontalScrollIndicator={false}>{movies}</ScrollView>
-    //   </View>
-    // );
-    // }
-
+}
   export default MovieScreen;
