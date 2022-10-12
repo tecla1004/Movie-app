@@ -11,7 +11,7 @@ import SearchScreen from '../screens/SearchScreen'
 import TvScreen from '../screens/TvScreen'
 
 const Nav  = createMaterialTopTabNavigator();
-export default function TapScreen  () {
+export default function TabScreen  () {
    
     return (
         <Nav.Navigator>
